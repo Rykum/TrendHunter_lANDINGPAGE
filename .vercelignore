@@ -1,0 +1,13 @@
+# Local execution and review artifacts
+/.superpowers/
+/docs/superpowers/
+/__person-inspect.png
+/next-start*.log
+/tsconfig.tsbuildinfo
+
+# The deployed app uses the Next.js app/ and public/ trees
+/assets/
+/index.html
+/script.js
+/styles.css
+/tests/
