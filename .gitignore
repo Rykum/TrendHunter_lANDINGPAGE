@@ -1,0 +1,25 @@
+# Dependencies
+/node_modules/
+
+# Next.js output
+/.next/
+/out/
+/build/
+
+# Vercel project metadata
+/.vercel/
+
+# Local secrets and environment overrides
+.env*
+!.env.example
+
+# Local TypeScript cache
+*.tsbuildinfo
+
+# Codex planning/review scratch
+/.superpowers/
+/docs/superpowers/
+
+# Local inspection and preview logs
+/__person-inspect.png
+/next-start*.log
