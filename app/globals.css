@@ -284,7 +284,8 @@ html.footer-in-view .gradual-blur-page { opacity: 0 !important; }
 .platform-video-cover::before { content: ''; position: absolute; inset: 15% -40%; border: 1px solid #17181670; border-radius: 50%; rotate: -25deg; z-index: -1; }
 .platform-video-cover img { position: absolute; height: 115%; width: 140%; max-width: none; object-fit: contain; left: -20%; bottom: -18%; filter: grayscale(1); }
 .platform-video-cover--1 { background: #b1b0a6; }.platform-video-cover--2 { background: #918879; }
-.platform-cover-logo { position: absolute; z-index: 2; top: 8px; left: 8px; width: 23px; height: 23px; padding: 4px; background: #171816c9; border: 1px solid #ede9df80; border-radius: 50%; opacity: 1; }
+.platform-cover-logo { position: absolute; z-index: 2; top: 8px; left: 8px; width: 23px; height: 23px; padding: 4px; background: #171816d9; border: 1px solid #ede9df80; border-radius: 50%; opacity: 1; }
+.platform-cover-logo::after { content: ''; display: block; width: 100%; height: 100%; background: var(--paper); mask: var(--social-icon) center / contain no-repeat; -webkit-mask: var(--social-icon) center / contain no-repeat; }
 .platform-cover-arrow { position: absolute; bottom: 4px; right: 6px; font-size: 18px; color: var(--paper); }
 .platform-video-info { min-width: 0; display: grid; gap: 9px; }
 .platform-video-info small { display: flex; align-items: center; gap: 6px; color: var(--muted); font: 8px/1.6 var(--mono); }
