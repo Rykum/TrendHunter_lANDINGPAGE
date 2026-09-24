@@ -32,7 +32,7 @@ export default function Observatory() {
             <div className="platform-video-list">
               {videos.map((item, index) => (
                 <button key={item.id} className="platform-video-option" aria-pressed={selected === index} onClick={() => setSelected(index)} type="button">
-                  <span className={`platform-video-cover platform-video-cover--${index}`} aria-hidden="true"><img src={item.image} alt="" loading="lazy" /><span>↗</span></span>
+                  <span className={`platform-video-cover platform-video-cover--${index}`} aria-hidden="true"><img src={item.image} alt="" loading="lazy" /><i className={`platform-cover-logo platform-social-icon--${item.platformKey}`} /><span className="platform-cover-arrow">↗</span></span>
                   <span className="platform-video-info"><small><i className={`platform-social-icon platform-social-icon--${item.platformKey}`} aria-hidden="true" />{item.platform} · {item.category}</small><strong>{item.title}</strong><span>Ver evolução <i aria-hidden="true">↗</i></span></span>
                 </button>
               ))}
