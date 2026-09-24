@@ -64,3 +64,15 @@ test('three hero comets share one orbit with staggered timings behind the social
   assert.equal(new Set(motions.map(({ props }) => props.begin)).size, 3)
   assert.equal(new Set(motions.map(({ props }) => props.path)).size, 1)
 })
+
+test('hero headline types each line with a blinking cursor on desktop and mobile', () => {
+  const elements = flattenElements(Hero())
+  const title = elements.find(({ type, props }) => type === 'h1' && props.className === 'hero-type')
+  const lines = title.props.children.filter(({ props }) => props.className?.includes('hero-type-line'))
+
+  assert.equal(lines.length, 3)
+  assert.ok(elements.some(({ props }) => props.className === 'hero-type-caret' && props['aria-hidden'] === 'true'))
+  assert.match(css, /\.hero-type-line--one[^{}]*\{[^}]*animation:\s*hero-typewriter/)
+  assert.match(css, /\.hero-type-caret[^{}]*\{[^}]*animation:\s*hero-caret-blink/)
+  assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*?\.hero-type-caret[^{}]*\{[^}]*display:\s*none/)
+})

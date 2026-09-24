@@ -41,7 +41,7 @@ export default function Hero() {
             <img className="hero-layer hero-layer--braids" data-hero-parallax="0.34" src="/assets/parallax/person-06-right-braids.png" alt="" />
           </div>
         </div>
-        <h1 className="hero-type"><span>A INTERNET</span><span className="hero-type-indent">ESTÁ SE</span><span className="hero-type-accent">MOVENDO.</span></h1>
+        <h1 className="hero-type"><span className="hero-type-line hero-type-line--one">A INTERNET</span><span className="hero-type-line hero-type-indent hero-type-line--two">ESTÁ SE</span><span className="hero-type-line hero-type-accent hero-type-line--three">MOVENDO.<span className="hero-type-caret" aria-hidden="true" /></span></h1>
         <div className="hero-bottom"><p>Entre o que passa e o que fica,<br />existe um sinal. Nós seguimos esse sinal.</p><a className="text-link" href="#noise">Entre no movimento <span aria-hidden="true">↗</span></a></div>
       </div>
     </section>

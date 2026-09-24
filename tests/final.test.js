@@ -31,3 +31,13 @@ test('final section keeps its summary and presents the monthly and promotional a
   assert.match(markup, /aria-pressed="true"/)
   assert.match(markup, /plano%20mensal/)
 })
+
+test('pricing cards are centered in the desktop section layout', () => {
+  const css = fs.readFileSync(path.join(__dirname, '..', 'app', 'globals.css'), 'utf8')
+  const finalBottom = css.match(/\.final-bottom\s*\{[^}]*\}/)?.[0]
+
+  assert.match(finalBottom, /grid-template-columns:\s*1fr/)
+  assert.match(css, /\.plan-picker\s*\{[^}]*margin(?:-inline)?:\s*auto/)
+  assert.match(css, /\.plan-picker-label\s*\{[^}]*text-align:\s*center/)
+  assert.match(css, /\.plan-picker\s*>\s*\.contact-link\s*\{[^}]*margin-left:\s*auto/)
+})

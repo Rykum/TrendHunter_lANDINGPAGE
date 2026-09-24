@@ -62,3 +62,11 @@ test('creator photo stays inside the camera viewfinder crop', () => {
   assert.match(markup, /M67 73h116v55H67Z/)
   assert.match(markup, /<image[^>]+href="\/assets\/culture-hands\.jpg"[^>]+x="66" y="74" width="119" height="56"/)
 })
+
+test('desktop audience layout places the component left and the heading right', () => {
+  const css = fs.readFileSync(path.join(__dirname, '..', 'app', 'globals.css'), 'utf8')
+  const desktopLayout = css.match(/@media \(min-width: 768px\)\s*\{[\s\S]*?\n\}/)?.[0]
+  assert.ok(desktopLayout)
+  assert.match(desktopLayout, /\.audience-intro\s*\{[^}]*grid-column:\s*2/)
+  assert.match(desktopLayout, /\.audience-selector\s*\{[^}]*grid-column:\s*1/)
+})
