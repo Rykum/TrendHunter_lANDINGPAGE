@@ -5,7 +5,6 @@ import Signal from '@/components/Signal'
 import Culture from '@/components/Culture'
 import Intelligence from '@/components/Intelligence'
 import Products from '@/components/Products'
-import Audience from '@/components/Audience'
 import Proof from '@/components/Proof'
 import Observatory from '@/components/Observatory'
 import Final from '@/components/Final'
@@ -24,7 +23,6 @@ export default function Home() {
         <Culture />
         <Intelligence />
         <Products />
-        <Audience />
         <Proof />
         <Observatory />
         <Final />

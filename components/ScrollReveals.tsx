@@ -114,14 +114,6 @@ const scenes: SectionScene[] = [
     },
   },
   {
-    id: 'audience',
-    animate(section, timeline, mobile, distance) {
-      enter(timeline, select(section, '.audience-intro > .eyebrow, .audience-intro > h2'), { y: 20 }, mobile, { stagger: 0.08, duration: 0.67 })
-      enter(timeline, select(section, '.audience-selector-label, .audience-options'), { x: distance * 0.35, y: 10 }, mobile, { stagger: 0.08, duration: 0.58 }, '>-0.35')
-      enter(timeline, select(section, '.audience-reading'), { y: 12 }, mobile, { duration: 0.62 }, '>-0.35')
-    },
-  },
-  {
     id: 'proof',
     animate(section, timeline, mobile, distance) {
       enter(timeline, select(section, '.eyebrow, #proof-title'), { y: 22 }, mobile, { stagger: 0.1, duration: 0.72 })
