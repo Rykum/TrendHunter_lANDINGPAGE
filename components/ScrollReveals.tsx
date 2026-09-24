@@ -105,12 +105,10 @@ const scenes: SectionScene[] = [
     id: 'products',
     animate(section, timeline, mobile) {
       enter(timeline, select(section, '.product-heading > *'), { y: 18 }, mobile, { stagger: 0.09, duration: 0.68 })
-      enter(timeline, select(section, '.radar-topbar, .radar-toolbar'), { y: 12 }, mobile, { stagger: 0.08, duration: 0.62 }, '>-0.25')
-      enter(timeline, select(section, '.radar-filters'), { x: 16, clipPath: 'inset(0% 0% 0% 100%)' }, mobile, { duration: 0.58 }, '>-0.35')
-      enter(timeline, select(section, '.radar-plot'), { scale: 0.9, rotation: -8 }, mobile, { ease: 'back.out(1.3)', duration: 0.75 }, '>-0.2')
-      enter(timeline, select(section, '.radar-reading'), { x: 16, y: 8 }, mobile, { duration: 0.66 }, '>-0.42')
-      enter(timeline, select(section, '.radar-disclaimer'), { y: 8 }, mobile, { duration: 0.5 }, '>-0.38')
-      enter(timeline, select(section, '.signal-feed > .text-link'), { y: 12 }, mobile, { duration: 0.56 }, '>-0.3')
+      enter(timeline, select(section, '.iphone-shell'), { scale: 0.9, rotation: -5, y: 18 }, mobile, { ease: 'back.out(1.3)', duration: 0.82 }, '>-0.22')
+      enter(timeline, select(section, '.metric-card'), { x: 18, y: 8 }, mobile, { stagger: 0.12, duration: 0.65 }, '>-0.46')
+      enter(timeline, select(section, '.phone-feed-item'), { x: 12, opacity: 0 }, mobile, { stagger: 0.1, duration: 0.48 }, '>-0.35')
+      enter(timeline, select(section, '.phone-disclaimer'), { y: 8 }, mobile, { duration: 0.5 }, '>-0.3')
     },
   },
   {

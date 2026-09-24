@@ -1,122 +1,95 @@
 'use client'
 
-import { useMemo, useState } from 'react'
-import type { CSSProperties } from 'react'
-import { filterSignals } from '../lib/filterSignals.mjs'
+import { useEffect, useState } from 'react'
 
-type CulturalSignal = {
-  id: string
-  name: string
-  shortName: string
-  category: string
-  tag: string
+type ViralClip = {
+  title: string
   platform: string
-  views: string
-  age: string
-  text: string
-  x: number
-  y: number
+  platformKey: 'tiktok' | 'instagram' | 'youtube'
+  category: string
+  views: number
+  likes: number
+  image: string
+  time: string
 }
 
-const signals: CulturalSignal[] = [
-  { id: 'pov', name: 'Um POV. Mil versões.', shortName: 'POV', category: 'Humor', platform: 'TikTok', views: '248 mil', age: '2 dias', tag: 'Formato · Situações do cotidiano', text: 'Insight ilustrativo: uma situação reconhecível abre espaço para diferentes criadores adaptarem a mesma ideia à sua comunidade.', x: 21, y: 30 },
-  { id: 'routine', name: 'A rotina vira conteúdo.', shortName: 'Rotina', category: 'Lifestyle', platform: 'Instagram', views: '186 mil', age: '3 dias', tag: 'Formato · Minivlog', text: 'Insight ilustrativo: cortes curtos e uma narrativa pessoal transformam pequenos momentos em uma referência de conteúdo.', x: 62, y: 44 },
-  { id: 'transformation', name: 'A transformação prende o olhar.', shortName: 'Antes / depois', category: 'Beleza', platform: 'YouTube Shorts', views: '412 mil', age: '4 dias', tag: 'Formato · Antes e depois', text: 'Insight ilustrativo: o contraste entre o início e o resultado cria uma promessa visual que pode orientar novas abordagens.', x: 32, y: 73 },
+const clips: ViralClip[] = [
+  { title: 'Um POV. Mil versões.', platform: 'TikTok', platformKey: 'tiktok', category: 'HUMOR', views: 248000, likes: 18600, image: '/assets/parallax/person-01-left-cap.png', time: 'há 2 dias' },
+  { title: 'A rotina vira conteúdo.', platform: 'Instagram', platformKey: 'instagram', category: 'LIFESTYLE', views: 186000, likes: 14200, image: '/assets/parallax/person-03-leather-phone.png', time: 'há 3 dias' },
+  { title: 'Do primeiro take ao resultado.', platform: 'YouTube Shorts', platformKey: 'youtube', category: 'BELEZA', views: 412000, likes: 29700, image: '/assets/parallax/person-06-right-braids.png', time: 'há 4 dias' },
 ]
 
-const categories = ['Todos', ...signals.map((signal) => signal.category)]
+const formatMetric = (value: number) => new Intl.NumberFormat('pt-BR').format(Math.round(value))
 
 export default function Products() {
-  const [category, setCategory] = useState('Todos')
-  const [activeId, setActiveId] = useState(signals[0].id)
-  const visibleSignals = useMemo(() => filterSignals(signals, category), [category])
-  const activeSignal = visibleSignals.find((signal) => signal.id === activeId) ?? visibleSignals[0]
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [views, setViews] = useState(0)
+  const [likes, setLikes] = useState(0)
+  const activeClip = clips[activeIndex]
 
-  function selectCategory(nextCategory: string) {
-    setCategory(nextCategory)
-    const firstSignal = filterSignals(signals, nextCategory)[0]
-    if (firstSignal) setActiveId(firstSignal.id)
-  }
+  useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) {
+      setViews(activeClip.views)
+      setLikes(activeClip.likes)
+      return
+    }
+    const start = performance.now()
+    const duration = 1250
+    let frame = 0
+    const animate = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setViews(activeClip.views * eased)
+      setLikes(activeClip.likes * eased)
+      if (progress < 1) frame = requestAnimationFrame(animate)
+    }
+    frame = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(frame)
+  }, [activeClip])
+
+  useEffect(() => {
+    const interval = window.setInterval(() => setActiveIndex(index => (index + 1) % clips.length), 5200)
+    return () => window.clearInterval(interval)
+  }, [])
 
   return (
     <section className="products section-shell" id="products" aria-labelledby="products-title">
       <div className="product-heading">
-        <p className="eyebrow">A plataforma</p>
+        <p className="eyebrow">A plataforma TrendHunter</p>
         <h2 id="products-title">Um radar para<br />o <em>agora.</em></h2>
-        <p>Do vídeo que ultrapassou 100 mil views à referência para sua próxima criação. Explore uma prévia de como queremos reunir esses sinais na plataforma.</p>
+        <p>Vídeos virais chegam, ganham contexto e viram pistas para a próxima decisão.</p>
+        <div className="phone-criteria"><span>JANELA DE MONITORAMENTO</span><strong>04 dias <i>×</i> +100k views</strong><small>Uma prévia do que a plataforma organiza para você.</small></div>
       </div>
 
-      <div className="signal-feed">
-        <div className="radar-platform">
-          <div className="radar-topbar">
-            <span className="radar-brand"><i aria-hidden="true" /> TRH <b>/</b> VIRAL RADAR</span>
-            <span className="radar-demo">PRÉVIA INTERATIVA</span>
-          </div>
+      <div className="phone-stage" aria-label="Demonstração da plataforma com vídeos virais e métricas">
+        <div className="metric-stack" aria-live="polite" aria-atomic="true">
+          <article className="metric-card metric-card--views"><span>VIEWS / 04 DIAS</span><strong>{formatMetric(views)}</strong><small><b>↑</b> alcance detectado</small></article>
+          <article className="metric-card metric-card--likes"><span>CURTIDAS</span><strong>{formatMetric(likes)}</strong><small><b>↑</b> sinal de aderência</small></article>
+          <div className="metric-signal"><i aria-hidden="true" />{activeClip.category} · {activeClip.platform}</div>
+        </div>
 
-          <div className="radar-toolbar">
-            <div>
-              <p className="radar-overline">Vídeos no radar</p>
-              <p className="radar-period">Janela de 4 dias · Mais de 100 mil views</p>
-            </div>
-            <span className="radar-count">{String(visibleSignals.length).padStart(2, '0')} localizados</span>
-          </div>
-
-          <div className="radar-filters" role="group" aria-label="Filtrar exemplos de vídeos por categoria">
-            {categories.map((item) => (
-              <button
-                className="radar-filter"
-                type="button"
-                key={item}
-                aria-pressed={category === item}
-                onClick={() => selectCategory(item)}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-
-          <div className="radar-workspace">
-            <div className="radar-plot" aria-label="Radar ilustrativo de vídeos virais. Selecione um ponto para explorar.">
-              <div className="radar-sweep" aria-hidden="true" />
-              <span className="radar-cross radar-cross--h" aria-hidden="true" />
-              <span className="radar-cross radar-cross--v" aria-hidden="true" />
-              <span className="radar-axis radar-axis--top">VÍDEOS EM ALTA</span>
-              <span className="radar-axis radar-axis--bottom">ESCOLHA UM PONTO</span>
-              {visibleSignals.map((signal, index) => (
-                <button
-                  key={signal.id}
-                  type="button"
-                  className={`radar-point${activeSignal.id === signal.id ? ' is-active' : ''}`}
-                  style={{ '--point-x': `${signal.x}%`, '--point-y': `${signal.y}%`, '--point-delay': `${index * 180}ms` } as CSSProperties}
-                  aria-pressed={activeSignal.id === signal.id}
-                  aria-label={`Explorar exemplo: ${signal.name}, ${signal.platform}, ${signal.views} visualizações`}
-                  onClick={() => setActiveId(signal.id)}
-                >
-                  <span className="radar-point-core" aria-hidden="true" />
-                  <span className="radar-point-label">{signal.shortName}</span>
+        <div className="iphone-shell">
+          <div className="iphone-button iphone-button--top" aria-hidden="true" />
+          <div className="iphone-button iphone-button--bottom" aria-hidden="true" />
+          <div className="iphone-screen">
+            <div className="iphone-island" aria-hidden="true" />
+            <div className="phone-appbar"><span>TRH <b>/</b> VIRAL FEED</span><span className="phone-live"><i /> ALERTAS</span></div>
+            <div className="phone-summary"><strong>Seu radar</strong><span>03 vídeos localizados</span></div>
+            <div className="phone-window"><span>ÚLTIMOS 04 DIAS</span><span>+100K</span></div>
+            <div className="phone-feed">
+              {clips.map((clip, index) => (
+                <button key={clip.title} className={`phone-feed-item${index === activeIndex ? ' is-active' : ''}`} type="button" aria-pressed={index === activeIndex} onClick={() => setActiveIndex(index)}>
+                  <span className={`phone-thumb phone-thumb--${index}`}><img src={clip.image} alt="" loading="lazy" /><i className={`platform-social-icon platform-social-icon--${clip.platformKey}`} aria-hidden="true" /><em>↗</em></span>
+                  <span className="phone-feed-copy"><small>{clip.platform} · {clip.time}</small><strong>{clip.title}</strong><span>{formatMetric(clip.views)} views <b>·</b> {formatMetric(clip.likes)} curtidas</span></span>
                 </button>
               ))}
-              <span className="radar-center" aria-hidden="true">TH</span>
             </div>
-
-            <article className="radar-reading" aria-live="polite" aria-atomic="true">
-              <div className="reading-meta"><span>{activeSignal.category}</span><span>{activeSignal.platform}</span></div>
-              <div className={`radar-video radar-video--${activeSignal.id}`} key={`cover-${activeSignal.id}`} aria-hidden="true">
-                <span className="radar-video-format">{activeSignal.shortName}</span>
-                <svg viewBox="0 0 32 32" width="32" height="32"><path d="M11 6 26 16 11 26Z" fill="currentColor" /></svg>
-                <span className="radar-video-caption">CAPA ILUSTRATIVA</span>
-              </div>
-              <dl className="radar-video-stats"><div><dt>Visualizações</dt><dd>{activeSignal.views}</dd></div><div><dt>Tempo observado</dt><dd>{activeSignal.age}</dd></div></dl>
-              <h3 key={activeSignal.id}>{activeSignal.name}</h3>
-              <p className="reading-tag">{activeSignal.tag}</p>
-              <p className="reading-copy">{activeSignal.text}</p>
-              <div className="reading-footer"><span className="reading-index">EXEMPLO 0{signals.indexOf(activeSignal) + 1} · CRITÉRIO ATINGIDO</span><span className="reading-line" aria-hidden="true" /></div>
-            </article>
+            <div className="phone-bottom-nav"><span className="is-current">Radar</span><span>Biblioteca</span><span>Insights</span></div>
           </div>
-          <p className="radar-disclaimer">Vídeos, métricas e insights fictícios para demonstrar a plataforma planejada. Hoje, os alertas do bot chegam pelo Telegram.</p>
         </div>
-        <a className="text-link" href="mailto:hello@trendhunter.co?subject=Quero%20conhecer%20a%20plataforma">Conhecer a plataforma <span aria-hidden="true">↗</span></a>
       </div>
+      <p className="phone-disclaimer">Demonstração visual com vídeos, métricas e dados fictícios. Os alertas atuais são enviados pelo Telegram.</p>
     </section>
   )
 }
