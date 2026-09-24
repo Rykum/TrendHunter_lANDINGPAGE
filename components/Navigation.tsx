@@ -5,7 +5,7 @@ const links = [
   { href: '#noise', label: 'A experiência', section: 'noise' },
   { href: '#intelligence', label: 'Como funciona', section: 'intelligence' },
   { href: '#products', label: 'Plataforma', section: 'products' },
-  { href: '#observatory', label: 'Observatório', section: 'observatory' },
+  { href: '#observatory', label: 'Por dentro', section: 'observatory' },
 ]
 
 export default function Navigation() {

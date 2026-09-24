@@ -135,16 +135,7 @@ const scenes: SectionScene[] = [
     id: 'observatory',
     animate(section, timeline, mobile, distance) {
       enter(timeline, select(section, '.eyebrow, #observatory-title'), { y: 24, scale: 0.985 }, mobile, { stagger: 0.09, duration: 0.7 })
-      select(section, '.journal-entry').forEach((article, index) => {
-        enter(
-          timeline,
-          [article],
-          { x: (index % 2 === 0 ? -1 : 1) * distance * 0.6, y: 22, rotation: index % 2 === 0 ? -2.5 : 2.5, scale: 0.965 },
-          mobile,
-          { duration: 0.78 },
-          index === 0 ? '>-0.14' : '>-0.36',
-        )
-      })
+      enter(timeline, select(section, '.platform-preview'), { y: 28, scale: 0.985 }, mobile, { duration: 0.8 }, '>-0.2')
     },
   },
   {

@@ -17,7 +17,7 @@ export default function Footer() {
         <p className="footer-motto">Inteligência cultural.<br />Curiosidade em movimento.</p>
         <nav aria-label="Rodapé">
           <a href="#noise">A obra</a>
-          <a href="#observatory">Observatório</a>
+          <a href="#observatory">Por dentro da plataforma</a>
           <a href="mailto:hello@trendhunter.co">Contato</a>
         </nav>
         <p className="footer-copyright">© {new Date().getFullYear()} TrendHunter</p>
