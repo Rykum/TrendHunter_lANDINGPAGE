@@ -3,9 +3,9 @@
 import { useState } from 'react'
 
 const videos = [
-  { id: 'pov', title: 'Um POV. Mil versões.', platform: 'TikTok', category: 'Humor', image: '/assets/parallax/person-01-left-cap.png', before: [1800, 96, 12], after: [248000, 18600, 4200], daily: [1800, 24000, 96000, 248000], insight: 'O salto mais forte aparece entre o terceiro e o quarto dia. Os compartilhamentos sugerem uma ideia que as pessoas querem repassar.', opportunity: 'Investigue o gancho e a situação cotidiana. Adapte a ideia à sua comunidade, sem repetir o vídeo.' },
-  { id: 'routine', title: 'A rotina vira conteúdo.', platform: 'Instagram', category: 'Lifestyle', image: '/assets/parallax/person-03-leather-phone.png', before: [2400, 180, 24], after: [186000, 14200, 2800], daily: [2400, 18000, 74000, 186000], insight: 'As visualizações aceleram ao longo da janela. Curtidas e compartilhamentos oferecem pistas para investigar a identificação com a rotina.', opportunity: 'Observe como a abertura apresenta a história e como os cortes conectam pequenos momentos.' },
-  { id: 'beauty', title: 'Do primeiro take ao resultado.', platform: 'YouTube Shorts', category: 'Beleza', image: '/assets/parallax/person-06-right-braids.png', before: [3200, 210, 18], after: [412000, 29700, 6300], daily: [3200, 46000, 182000, 412000], insight: 'O vídeo ultrapassa 100 mil visualizações no terceiro dia e continua crescendo. O contraste visual é uma hipótese criativa a explorar.', opportunity: 'Analise quando o resultado é revelado. Uma transformação clara pode servir de referência para outro tema.' },
+  { id: 'pov', title: 'Um POV. Mil versões.', platform: 'TikTok', platformKey: 'tiktok', category: 'Humor', image: '/assets/parallax/person-01-left-cap.png', before: [1800, 96, 12], after: [248000, 18600, 4200], daily: [1800, 24000, 96000, 248000], insight: 'O salto mais forte aparece entre o terceiro e o quarto dia. Os compartilhamentos sugerem uma ideia que as pessoas querem repassar.', opportunity: 'Investigue o gancho e a situação cotidiana. Adapte a ideia à sua comunidade, sem repetir o vídeo.' },
+  { id: 'routine', title: 'A rotina vira conteúdo.', platform: 'Instagram', platformKey: 'instagram', category: 'Lifestyle', image: '/assets/parallax/person-03-leather-phone.png', before: [2400, 180, 24], after: [186000, 14200, 2800], daily: [2400, 18000, 74000, 186000], insight: 'As visualizações aceleram ao longo da janela. Curtidas e compartilhamentos oferecem pistas para investigar a identificação com a rotina.', opportunity: 'Observe como a abertura apresenta a história e como os cortes conectam pequenos momentos.' },
+  { id: 'beauty', title: 'Do primeiro take ao resultado.', platform: 'YouTube Shorts', platformKey: 'youtube', category: 'Beleza', image: '/assets/parallax/person-06-right-braids.png', before: [3200, 210, 18], after: [412000, 29700, 6300], daily: [3200, 46000, 182000, 412000], insight: 'O vídeo ultrapassa 100 mil visualizações no terceiro dia e continua crescendo. O contraste visual é uma hipótese criativa a explorar.', opportunity: 'Analise quando o resultado é revelado. Uma transformação clara pode servir de referência para outro tema.' },
 ]
 const format = (value: number) => new Intl.NumberFormat('pt-BR').format(value)
 const labels = ['Visualizações', 'Curtidas', 'Compartilhamentos']
@@ -33,14 +33,14 @@ export default function Observatory() {
               {videos.map((item, index) => (
                 <button key={item.id} className="platform-video-option" aria-pressed={selected === index} onClick={() => setSelected(index)} type="button">
                   <span className={`platform-video-cover platform-video-cover--${index}`} aria-hidden="true"><img src={item.image} alt="" loading="lazy" /><span>↗</span></span>
-                  <span className="platform-video-info"><small>{item.platform} · {item.category}</small><strong>{item.title}</strong><span>Ver evolução <i aria-hidden="true">↗</i></span></span>
+                  <span className="platform-video-info"><small><i className={`platform-social-icon platform-social-icon--${item.platformKey}`} aria-hidden="true" />{item.platform} · {item.category}</small><strong>{item.title}</strong><span>Ver evolução <i aria-hidden="true">↗</i></span></span>
                 </button>
               ))}
             </div>
             <p className="platform-library-note">Capas ilustrativas.<br />Uma prévia do acervo que estamos construindo.</p>
           </aside>
           <div className="platform-analysis">
-            <div className="platform-analysis-heading"><div><p>{video.platform} / {video.category}</p><h3>{video.title}</h3></div><span className="platform-sample-tag">VÍDEO EXEMPLO</span></div>
+            <div className="platform-analysis-heading"><div><p><i className={`platform-social-icon platform-social-icon--${video.platformKey}`} aria-hidden="true" />{video.platform} / {video.category}</p><h3>{video.title}</h3></div><span className="platform-sample-tag">VÍDEO EXEMPLO</span></div>
             <div className="platform-period" role="group" aria-label="Momento da análise">
               <button type="button" aria-pressed={!expanded} onClick={() => setExpanded(false)}>01 <span>Primeiro registro</span></button>
               <button type="button" aria-pressed={expanded} onClick={() => setExpanded(true)}>02 <span>Após 4 dias</span><span aria-hidden="true">↗</span></button>
