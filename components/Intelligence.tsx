@@ -2,8 +2,8 @@ import { ChartLineUp, MagnifyingGlass, SquaresFour } from '@phosphor-icons/react
 
 const steps = [
   { name: 'Detectar.', note: 'Hoje · Do monitoramento ao Telegram.', text: 'Nosso bot acompanha vídeos por quatro dias. Os que ultrapassam 100 mil visualizações entram na nossa seleção de virais e são enviados ao Telegram.', icon: MagnifyingGlass },
-  { name: 'Organizar.', note: 'Em desenvolvimento · Seu acervo de sinais.', text: 'Uma plataforma própria para reunir os vídeos selecionados no Telegram e explorá-los por categoria e rede social. Referências organizadas para encontrar o que faz sentido para você.', icon: SquaresFour },
-  { name: 'Decidir.', note: 'Em desenvolvimento · Da referência à ação.', text: 'Análises e insights para entender os conteúdos em alta, com recursos de gestão pensados para criadores, influenciadores, marcas e agências.', icon: ChartLineUp },
+  { name: 'Organizar.', note: 'Seu acervo de sinais.', text: 'Uma plataforma própria para reunir os vídeos selecionados no Telegram e explorá-los por categoria e rede social. Referências organizadas para encontrar o que faz sentido para você.', icon: SquaresFour },
+  { name: 'Decidir.', note: 'Da referência à ação.', text: 'Análises e insights para entender os conteúdos em alta, com recursos de gestão pensados para criadores, influenciadores, marcas e agências.', icon: ChartLineUp },
 ]
 export default function Intelligence() {
   return (
