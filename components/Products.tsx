@@ -10,15 +10,18 @@ type CulturalSignal = {
   shortName: string
   category: string
   tag: string
+  platform: string
+  views: string
+  age: string
   text: string
   x: number
   y: number
 }
 
 const signals: CulturalSignal[] = [
-  { id: 'texture', name: 'O digital quer ter textura.', shortName: 'Textura', category: 'Estética', tag: 'Analógico / digital', text: 'Grão, impressão aparente e enquadramentos imperfeitos reaparecem na linguagem de criadores. Uma pergunta para investigar: quando o acabamento perde importância e a sensação de proximidade ganha espaço?', x: 23, y: 30 },
-  { id: 'belonging', name: 'Pertencer vale mais que aparecer.', shortName: 'Pertencer', category: 'Comunidades', tag: 'Público / íntimo', text: 'Grupos menores podem criar códigos e conversas que se perdem num feed aberto. O que muda no conteúdo quando ele é pensado para um círculo de pessoas, e não para uma audiência indistinta?', x: 72, y: 43 },
-  { id: 'archive', name: 'O arquivo ganha outra vida.', shortName: 'Arquivo', category: 'Comportamento', tag: 'Memória / remix', text: 'Peças, imagens e referências do passado são recombinadas no presente. A oportunidade está em entender o novo significado atribuído ao arquivo, além da nostalgia.', x: 42, y: 73 },
+  { id: 'pov', name: 'Um POV. Mil versões.', shortName: 'POV', category: 'Humor', platform: 'TikTok', views: '248 mil', age: '2 dias', tag: 'Formato · Situações do cotidiano', text: 'Insight ilustrativo: uma situação reconhecível abre espaço para diferentes criadores adaptarem a mesma ideia à sua comunidade.', x: 21, y: 30 },
+  { id: 'routine', name: 'A rotina vira conteúdo.', shortName: 'Rotina', category: 'Lifestyle', platform: 'Instagram', views: '186 mil', age: '3 dias', tag: 'Formato · Minivlog', text: 'Insight ilustrativo: cortes curtos e uma narrativa pessoal transformam pequenos momentos em uma referência de conteúdo.', x: 62, y: 44 },
+  { id: 'transformation', name: 'A transformação prende o olhar.', shortName: 'Antes / depois', category: 'Beleza', platform: 'YouTube Shorts', views: '412 mil', age: '4 dias', tag: 'Formato · Antes e depois', text: 'Insight ilustrativo: o contraste entre o início e o resultado cria uma promessa visual que pode orientar novas abordagens.', x: 32, y: 73 },
 ]
 
 const categories = ['Todos', ...signals.map((signal) => signal.category)]
@@ -40,25 +43,25 @@ export default function Products() {
       <div className="product-heading">
         <p className="eyebrow">A plataforma</p>
         <h2 id="products-title">Um radar para<br />o <em>agora.</em></h2>
-        <p>Um lugar para explorar sinais, conectar contextos e alimentar sua próxima ideia.</p>
+        <p>Do vídeo que ultrapassou 100 mil views à referência para sua próxima criação. Explore uma prévia de como queremos reunir esses sinais na plataforma.</p>
       </div>
 
       <div className="signal-feed">
         <div className="radar-platform">
           <div className="radar-topbar">
-            <span className="radar-brand"><i aria-hidden="true" /> TRH <b>/</b> FIELD NOTES</span>
-            <span className="radar-demo">DEMONSTRAÇÃO · 01</span>
+            <span className="radar-brand"><i aria-hidden="true" /> TRH <b>/</b> VIRAL RADAR</span>
+            <span className="radar-demo">PRÉVIA INTERATIVA</span>
           </div>
 
           <div className="radar-toolbar">
             <div>
-              <p className="radar-overline">Sinais culturais</p>
-              <p className="radar-period">Um recorte para explorar</p>
+              <p className="radar-overline">Vídeos no radar</p>
+              <p className="radar-period">Janela de 4 dias · Mais de 100 mil views</p>
             </div>
-            <span className="radar-count">{String(visibleSignals.length).padStart(2, '0')} sinais</span>
+            <span className="radar-count">{String(visibleSignals.length).padStart(2, '0')} localizados</span>
           </div>
 
-          <div className="radar-filters" role="group" aria-label="Filtrar sinais por categoria">
+          <div className="radar-filters" role="group" aria-label="Filtrar exemplos de vídeos por categoria">
             {categories.map((item) => (
               <button
                 className="radar-filter"
@@ -73,12 +76,12 @@ export default function Products() {
           </div>
 
           <div className="radar-workspace">
-            <div className="radar-plot" aria-label="Mapa ilustrativo de sinais culturais">
+            <div className="radar-plot" aria-label="Radar ilustrativo de vídeos virais. Selecione um ponto para explorar.">
               <div className="radar-sweep" aria-hidden="true" />
               <span className="radar-cross radar-cross--h" aria-hidden="true" />
               <span className="radar-cross radar-cross--v" aria-hidden="true" />
-              <span className="radar-axis radar-axis--top">AGORA</span>
-              <span className="radar-axis radar-axis--bottom">EMERGENTE</span>
+              <span className="radar-axis radar-axis--top">VÍDEOS EM ALTA</span>
+              <span className="radar-axis radar-axis--bottom">ESCOLHA UM PONTO</span>
               {visibleSignals.map((signal, index) => (
                 <button
                   key={signal.id}
@@ -86,7 +89,7 @@ export default function Products() {
                   className={`radar-point${activeSignal.id === signal.id ? ' is-active' : ''}`}
                   style={{ '--point-x': `${signal.x}%`, '--point-y': `${signal.y}%`, '--point-delay': `${index * 180}ms` } as CSSProperties}
                   aria-pressed={activeSignal.id === signal.id}
-                  aria-label={`Selecionar sinal: ${signal.name} (${signal.category})`}
+                  aria-label={`Explorar exemplo: ${signal.name}, ${signal.platform}, ${signal.views} visualizações`}
                   onClick={() => setActiveId(signal.id)}
                 >
                   <span className="radar-point-core" aria-hidden="true" />
@@ -97,14 +100,20 @@ export default function Products() {
             </div>
 
             <article className="radar-reading" aria-live="polite" aria-atomic="true">
-              <div className="reading-meta"><span>{activeSignal.category}</span><span>LEITURA SELECIONADA</span></div>
+              <div className="reading-meta"><span>{activeSignal.category}</span><span>{activeSignal.platform}</span></div>
+              <div className={`radar-video radar-video--${activeSignal.id}`} key={`cover-${activeSignal.id}`} aria-hidden="true">
+                <span className="radar-video-format">{activeSignal.shortName}</span>
+                <svg viewBox="0 0 32 32" width="32" height="32"><path d="M11 6 26 16 11 26Z" fill="currentColor" /></svg>
+                <span className="radar-video-caption">CAPA ILUSTRATIVA</span>
+              </div>
+              <dl className="radar-video-stats"><div><dt>Visualizações</dt><dd>{activeSignal.views}</dd></div><div><dt>Tempo observado</dt><dd>{activeSignal.age}</dd></div></dl>
               <h3 key={activeSignal.id}>{activeSignal.name}</h3>
               <p className="reading-tag">{activeSignal.tag}</p>
               <p className="reading-copy">{activeSignal.text}</p>
-              <div className="reading-footer"><span className="reading-index">SINAL 0{signals.indexOf(activeSignal) + 1}</span><span className="reading-line" aria-hidden="true" /></div>
+              <div className="reading-footer"><span className="reading-index">EXEMPLO 0{signals.indexOf(activeSignal) + 1} · CRITÉRIO ATINGIDO</span><span className="reading-line" aria-hidden="true" /></div>
             </article>
           </div>
-          <p className="radar-disclaimer">Composição editorial para demonstração. Não representa monitoramento em tempo real.</p>
+          <p className="radar-disclaimer">Vídeos, métricas e insights fictícios para demonstrar a plataforma planejada. Hoje, os alertas do bot chegam pelo Telegram.</p>
         </div>
         <a className="text-link" href="mailto:hello@trendhunter.co?subject=Quero%20conhecer%20a%20plataforma">Conhecer a plataforma <span aria-hidden="true">↗</span></a>
       </div>

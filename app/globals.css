@@ -209,6 +209,20 @@ html.footer-in-view .gradual-blur-page { opacity: 0 !important; }
 .radar-point { position: absolute; z-index: 2; left: var(--point-x); top: var(--point-y); display: grid; grid-template-columns: 10px auto; align-items: center; gap: 5px; max-width: calc(50% - 7px); min-height: 36px; padding: 5px 8px 5px 5px; transform: translate(-10px,-50%); border: 1px solid transparent; border-radius: 22px; background: #191a18dd; color: var(--muted); font: 9px var(--mono); white-space: nowrap; transition: border-color .25s, color .25s, background .25s, scale .25s; }.radar-point-core { width: 8px; height: 8px; border: 1px solid var(--red); border-radius: 50%; background: var(--black); box-shadow: 0 0 0 3px #df72631b; transition: background .25s, box-shadow .25s; }.radar-point:hover,.radar-point.is-active { border-color: #df726366; color: var(--paper); background: #25201f; }.radar-point.is-active { scale: 1.06; }.radar-point.is-active .radar-point-core { background: var(--red); box-shadow: 0 0 0 4px #df72632a, 0 0 12px #df7263a0; }.radar-point-label { overflow: hidden; text-overflow: ellipsis; }
 .radar-reading { min-width: 0; padding-left: 19px; border-left: 1px solid var(--line); }.reading-meta { display: flex; flex-wrap: wrap; gap: 8px 15px; justify-content: space-between; color: var(--red); font: 8px/1.5 var(--mono); letter-spacing: .04em; }.reading-meta span:last-child { color: var(--muted); }.radar-reading h3 { margin-top: 20px; font-size: clamp(22px,2.5vw,34px); line-height: 1.05; letter-spacing: -.045em; animation: reading-arrive .35s var(--ease) both; }.reading-tag { margin-top: 12px; color: var(--red); font: 9px var(--mono); }.reading-copy { margin-top: 20px; color: var(--muted); font-size: 12px; line-height: 1.7; }.reading-footer { display: flex; align-items: center; gap: 12px; margin-top: 25px; }.reading-index { color: var(--muted); font: 8px var(--mono); white-space: nowrap; }.reading-line { height: 1px; flex: 1; background: var(--line); }.radar-disclaimer { padding: 10px 18px; color: var(--muted); font: 9px/1.6 var(--mono); }
 @keyframes reading-arrive { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+.radar-video { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 112px; margin-top: 16px; padding: 22px 16px; overflow: hidden; isolation: isolate; color: var(--paper); background: #34362f; border: 1px solid var(--line); animation: reading-arrive .35s var(--ease) both; }
+.radar-video::before { content: ''; position: absolute; z-index: -1; width: 150px; height: 150px; right: -35px; top: -25px; border: 20px solid var(--red); border-radius: 50%; opacity: .65; }
+.radar-video--routine::before { border-radius: 0; rotate: 35deg; right: -55px; }
+.radar-video--transformation::before { border-radius: 50% 0 50% 0; rotate: -20deg; border-width: 35px; }
+.radar-video-format { max-width: 8ch; font-size: clamp(24px,2.8vw,38px); line-height: .95; letter-spacing: -.045em; font-weight: 500; }
+.radar-video svg { flex: 0 0 auto; }
+.radar-video-caption { position: absolute; bottom: 7px; left: 16px; font: 7px var(--mono); letter-spacing: .1em; color: var(--muted); }
+.radar-video-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0 0; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.radar-video-stats dt { font: 8px/1.5 var(--mono); color: var(--muted); }
+.radar-video-stats dd { margin: 5px 0 0; font-size: 21px; line-height: 1.1; color: var(--paper); letter-spacing: -.035em; }
+@media (prefers-reduced-motion: no-preference) {
+  .radar-point-core { animation: radar-detection 3.5s ease-out infinite; animation-delay: var(--point-delay,0ms); }
+}
+@keyframes radar-detection { 0%,100% { box-shadow: 0 0 0 3px #df72631b; } 45% { box-shadow: 0 0 0 8px #df726300,0 0 14px #df726370; } }
 .signal-feed > .text-link { margin-top: 22px; }
 
 /* The visitor's role has a dedicated, quiet moment. */
