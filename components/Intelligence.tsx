@@ -1,15 +1,15 @@
-import { Compass, Ear, ShareNetwork } from '@phosphor-icons/react/dist/ssr'
+import { ChartLineUp, MagnifyingGlass, SquaresFour } from '@phosphor-icons/react/dist/ssr'
 
 const steps = [
-  { name: 'Escutar.', note: 'Estar perto de onde começa.', text: 'Observar linguagens, formatos e conversas no contexto das comunidades que os criam.', icon: Ear },
-  { name: 'Conectar.', note: 'Ver relações que não são óbvias.', text: 'Cruzar comportamentos, reconhecer recorrências e separar um pico de atenção de uma mudança cultural.', icon: ShareNetwork },
-  { name: 'Interpretar.', note: 'Transformar percepção em direção.', text: 'Construir uma leitura que ajude a decidir o que criar, quando agir e quais perguntas fazer a seguir.', icon: Compass },
+  { name: 'Detectar.', note: 'Hoje · Do monitoramento ao Telegram.', text: 'Nosso bot acompanha vídeos por quatro dias. Os que ultrapassam 100 mil visualizações entram na nossa seleção de virais e são enviados ao Telegram.', icon: MagnifyingGlass },
+  { name: 'Organizar.', note: 'Em desenvolvimento · Seu acervo de sinais.', text: 'Uma plataforma própria para reunir os vídeos selecionados no Telegram e explorá-los por categoria e rede social. Referências organizadas para encontrar o que faz sentido para você.', icon: SquaresFour },
+  { name: 'Decidir.', note: 'Em desenvolvimento · Da referência à ação.', text: 'Análises e insights para entender os conteúdos em alta, com recursos de gestão pensados para criadores, influenciadores, marcas e agências.', icon: ChartLineUp },
 ]
 export default function Intelligence() {
   return (
     <section className="intelligence section-shell" id="intelligence" aria-labelledby="intelligence-title">
-      <p className="eyebrow">Nosso modo de olhar</p><h2 id="intelligence-title">Sensibilidade cultural.<br /><em>Clareza para agir.</em></h2>
-      <ol className="method-list" aria-label="Etapas da leitura cultural">
+      <p className="eyebrow">A plataforma TrendHunter</p><h2 id="intelligence-title">Do vídeo em alta.<br /><em>À próxima decisão.</em></h2>
+      <ol className="method-list" aria-label="Como a plataforma funciona e seus próximos passos">
         {steps.map(({ icon: Icon, ...step }, index) => (
           <li className="method-row" key={step.name}>
             <span className="method-index">0{index + 1}</span>
